@@ -1,0 +1,10 @@
+<h2>Student {{student.fullName | uppercase}}</h2>
+<div><span>id: </span>{{student.id}}</div>
+<div><span>full name: </span>{{student.fullName}}</div>
+<div><span>nien khoa: </span>{{student.nienKhoa}}</div>
+<div><span>tuoi: </span>{{student.tuoi}}</div>
+
+<div>
+    <label for="name">Student full name: </label>
+    <input id="name" [(ngModel)]="student.fullName" placeholder="full name">
+</div>
