@@ -1,6 +1,7 @@
-export interface Student{
-    id: number;
-    nienKhoa: string;
-    fullName: string;
-    tuoi: number;
+export interface Student {
+  id: number;
+  firstName: string;
+  // nienKhoa: string;
+  // fullName: string;
+  // tuoi: number;
 }

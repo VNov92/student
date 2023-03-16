@@ -1,2 +1,9 @@
-<h1>{{title}}</h1>
-<app-students></app-students>
+<div class="container">
+  <h1>{{ title }}</h1>
+  <nav>
+    <a routerLink="/students">Students</a>
+    <a routerLink="/search">Search</a>
+  </nav>
+  <router-outlet></router-outlet>
+  <app-messages></app-messages>
+</div>

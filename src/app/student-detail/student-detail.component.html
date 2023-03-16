@@ -1,0 +1,32 @@
+<div *ngIf="student">
+  <h2>Student {{ student.firstName | uppercase }} Details</h2>
+
+  <form (ngSubmit)="onSubmit()" #studentForm="ngForm">
+    <div><span>id: </span>{{ student.id }}</div>
+    <input type="hidden" name="id" [value]="student.id" />
+    <div>
+      <label for="name">Full name: </label>
+      <input
+        id="name"
+        name="firstName"
+        [(ngModel)]="student.firstName"
+        #firstName="ngModel"
+        required
+      />
+      <div
+        [hidden]="firstName.valid || firstName.pristine"
+        class="alert alert-danger"
+      >
+        Full name is required
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-success"
+      [disabled]="!studentForm.form.valid"
+    >
+      Save
+    </button>
+  </form>
+</div>

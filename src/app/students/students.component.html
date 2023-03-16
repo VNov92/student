@@ -1,10 +1,29 @@
-<h2>Student {{student.fullName | uppercase}}</h2>
-<div><span>id: </span>{{student.id}}</div>
-<div><span>full name: </span>{{student.fullName}}</div>
-<div><span>nien khoa: </span>{{student.nienKhoa}}</div>
-<div><span>tuoi: </span>{{student.tuoi}}</div>
+<div *ngIf="isList">
+  <div>
+    <h2>List Students</h2>
+    <ul>
+      <li *ngFor="let student of students">
+        <a routerLink="/detail/{{ student.id }}">
+          <span>{{ student.id }}</span> {{ student.firstName }}
+        </a>
+        <button type="button" title="delete student" (click)="delete(student)">
+          x
+        </button>
+      </li>
+    </ul>
+  </div>
+  <button type="button" (click)="onAdd()">Add student</button>
+</div>
+<div *ngIf="!isList">
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="new-student">Full name: </label>
+      <input id="new-student" formControlName="firstName" required />
+    </div>
 
-<div>
-    <label for="name">Student full name: </label>
-    <input id="name" [(ngModel)]="student.fullName" placeholder="full name">
+    <button type="button" class="btn btn-secondary" (click)="isList = true">
+      Back
+    </button>
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
 </div>
