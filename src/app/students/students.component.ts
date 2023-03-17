@@ -1,5 +1,7 @@
+import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
 import { Student } from '../student';
 import { StudentService } from '../student.service';
 
@@ -10,9 +12,7 @@ import { StudentService } from '../student.service';
 })
 export class StudentsComponent implements OnInit {
   students: Student[] = [];
-  addForm = this.formBuilder.group({
-    firstName: ['', [Validators.required]],
-  });
+  addForm!: FormGroup;
   isList = true;
 
   constructor(
@@ -22,6 +22,11 @@ export class StudentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStudents();
+    this.addForm = this.formBuilder.group({
+      fullName: ['', [Validators.required]],
+      nienKhoa: ['', [Validators.required]],
+      tuoi: ['', [Validators.required]],
+    });
   }
 
   getStudents(): void {
@@ -41,8 +46,8 @@ export class StudentsComponent implements OnInit {
 
   onSubmit(): void {
     if (this.addForm.valid) {
-      var myFormData = new FormData();
-      myFormData.append('firstName', this.addForm.value.firstName);
+      this.studentService.addStudent(this.addForm.value).subscribe(student=>this.students.push(student));
+      this.isList = true;
     }
   }
 }

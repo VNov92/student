@@ -8,7 +8,7 @@ import { Student } from './student';
   providedIn: 'root',
 })
 export class StudentService {
-  private studentUrl = 'https://dummyjson.com/users';
+  private studentUrl = 'http://localhost:8686/api/student';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -20,9 +20,7 @@ export class StudentService {
 
   /** GET: students from the server */
   getStudents(): Observable<Student[]> {
-    const url = `${this.studentUrl}/?limit=5&select=id,firstName`;
-    return this.http.get<Student[]>(url).pipe(
-      map((datas: any) => datas.users),
+    return this.http.get<Student[]>(this.studentUrl).pipe(
       tap((_) => this.log('fetched students')),
       catchError(this.handleError<Student[]>('getStudents', []))
     );
@@ -46,7 +44,6 @@ export class StudentService {
     }
     const url = `${this.studentUrl}/search?q=${term}`;
     return this.http.get<Student[]>(url).pipe(
-      map((datas: any) => datas.users),
       tap((x) =>
         x.length
           ? this.log(`founded students matching "${term}"`)
@@ -70,8 +67,7 @@ export class StudentService {
 
   /** POST: update the student on the server */
   updateStudent(student: Student): Observable<Student> {
-    const url = `${this.studentUrl}/${student.id}`;
-    return this.http.put<Student>(url, student, this.httpOptions).pipe(
+    return this.http.post<Student>(this.studentUrl, student, this.httpOptions).pipe(
       tap((_) => this.log(`updated student id = ${student.id}`)),
       catchError(this.handleError<Student>('updateStudent'))
     );

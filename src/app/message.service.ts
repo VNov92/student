@@ -14,4 +14,9 @@ export class MessageService {
   clear() {
     this.messages = [];
   }
+  close(message: string):void{
+    console.log("close method")
+    this.messages = this.messages.filter(mess => mess !== message)
+    
+  }
 }

@@ -1,15 +1,20 @@
 <div id="search-component">
-  <label for="search-box">Student search</label>
+  <h2>Search Students</h2>
+
+  <div class="mb-3">
+  <label for="search-box" class="form-label">Student search</label>
   <input
     type="search"
     id="search-box"
+    class="form-control"
     #searchBox
     (input)="search(searchBox.value)"
   />
+</div>
 
   <ul>
     <li *ngFor="let student of students$ | async">
-      <a routerLink="/detail/{{ student.id }}">{{ student.firstName }}</a>
+      <a routerLink="/detail/{{ student.id }}">{{ student.fullName }}</a>
     </li>
   </ul>
 </div>

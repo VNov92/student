@@ -1,26 +1,64 @@
 <div *ngIf="student">
-  <h2>Student {{ student.firstName | uppercase }} Details</h2>
+  <h2>Student {{ student.fullName | uppercase }} Details</h2>
 
   <form (ngSubmit)="onSubmit()" #studentForm="ngForm">
     <div><span>id: </span>{{ student.id }}</div>
     <input type="hidden" name="id" [value]="student.id" />
-    <div>
-      <label for="name">Full name: </label>
+    <div class="mb-3">
+      <label for="name" class="form-label">Full name: </label>
       <input
         id="name"
-        name="firstName"
-        [(ngModel)]="student.firstName"
-        #firstName="ngModel"
+        name="fullName"
+        class="form-control"
+        [(ngModel)]="student.fullName"
+        #fullName="ngModel"
         required
       />
       <div
-        [hidden]="firstName.valid || firstName.pristine"
+        [hidden]="fullName.valid || fullName.pristine"
         class="alert alert-danger"
       >
         Full name is required
       </div>
     </div>
 
+    <div class="mb-3">
+      <label for="tuoi" class="form-label">Tuoi: </label>
+      <input
+        id="tuoi"
+        name="tuoi"
+        class="form-control"
+        [(ngModel)]="student.tuoi"
+        #tuoi="ngModel"
+        required
+      />
+      <div
+        [hidden]="tuoi.valid || tuoi.pristine"
+        class="alert alert-danger"
+      >
+        Tuoi is required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="year" class="form-label">Nien Khoa: </label>
+      <input
+        id="year"
+        name="nienKhoa"
+        class="form-control"
+        [(ngModel)]="student.nienKhoa"
+        #nienKhoa="ngModel"
+        required
+      />
+      <div
+        [hidden]="nienKhoa.valid || nienKhoa.pristine"
+        class="alert alert-danger"
+      >
+        Nien Khoa is required
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-secondary me-2" (click)="goBack()">Back</button>
     <button
       type="submit"
       class="btn btn-success"

@@ -1,29 +1,54 @@
-<div *ngIf="isList">
+<div *ngIf="isList" class="d-flex justify-content-between">
   <div>
     <h2>List Students</h2>
-    <ul>
-      <li *ngFor="let student of students">
-        <a routerLink="/detail/{{ student.id }}">
-          <span>{{ student.id }}</span> {{ student.firstName }}
-        </a>
-        <button type="button" title="delete student" (click)="delete(student)">
-          x
-        </button>
-      </li>
-    </ul>
+    <!-- Table students -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Full name</th>
+          <th scope="col">Tuoi</th>
+          <th scope="col">Nien Khoa</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{student.fullName}}</td>
+          <td>{{student.tuoi}}</td>
+          <td>{{student.nienKhoa}}</td>
+          <td><a routerLink="/detail/{{ student.id }}">
+            Edit
+          </a></td>
+          <td><button type="button" class="btn-close" title="delete student" (click)="delete(student)"></button></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <button type="button" (click)="onAdd()">Add student</button>
+  <div>
+    <button type="button" class="btn btn-success" (click)="onAdd()">Add student</button>
+  </div>
 </div>
 <div *ngIf="!isList">
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="new-student">Full name: </label>
-      <input id="new-student" formControlName="firstName" required />
+    <div class="mb-3">
+      <label for="name" class="form-label">Full name: </label>
+      <input id="name" class="form-control" formControlName="fullName" required />
+    </div>
+    <div class="mb-3">
+      <label for="year" class="form-label">Nien Khoa: </label>
+      <input id="year" class="form-control" formControlName="nienKhoa" required />
+    </div>
+    <div class="mb-3">
+      <label for="age" class="form-label">Tuoi: </label>
+      <input type="number" class="form-control" id="age" formControlName="tuoi" required />
     </div>
 
-    <button type="button" class="btn btn-secondary" (click)="isList = true">
+    <button type="button" class="btn btn-secondary me-2" (click)="isList = true">
       Back
     </button>
-    <button type="submit" class="btn btn-primary">Add</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!addForm.valid">Add</button>
   </form>
 </div>
